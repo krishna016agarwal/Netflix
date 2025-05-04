@@ -63,10 +63,21 @@
   </style>
   <body>
       <!-- Netflix Intro Video -->
-  <video id="introVideo" autoplay muted playsinline>
-    <source src="Netflix Intro (1080p) (Download).ia.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
+<!-- Video Tag (not autoplaying directly) -->
+<video id="introVideo" playsinline>
+  <source src="Netflix Intro (1080p) (Download).ia.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<!-- Overlay Play Button -->
+<div id="playOverlay" style="
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  background: black; color: white; font-size: 2rem; z-index: 10000; cursor: pointer;
+">
+  ▶ Click to Start
+</div>
+
 
   <!-- Main Netflix Content -->
     <header>
@@ -250,13 +261,20 @@
     <script>
       const introVideo = document.getElementById("introVideo");
       const mainContent = document.getElementById("mainContent");
-  
+      const playOverlay = document.getElementById("playOverlay");
+    
+      playOverlay.addEventListener("click", () => {
+        playOverlay.style.display = "none";
+        introVideo.play();
+      });
+    
       introVideo.addEventListener("ended", () => {
         introVideo.style.display = "none";
         document.body.style.overflow = "auto";
         mainContent.style.display = "flex";
       });
     </script>
+    
     <script src="script.js"></script>
   </body>
 </html>
